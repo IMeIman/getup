@@ -14,7 +14,7 @@ const itemId = `faq-${Math.random().toString(36).slice(2, 9)}`;
   class:list={["group border-b border-primary-200", className]}
 >
   <button
-    class="faq-toggle flex w-full items-center justify-between gap-4 py-5 text-left text-sm font-medium text-primary transition-colors hover:text-secondary sm:text-base"
+    class="faq-toggle flex w-full items-center justify-between gap-4 py-5 text-left text-md font-medium text-primary transition-colors hover:text-secondary sm:text-lg"
     aria-expanded="false"
     aria-controls={itemId}
   >
@@ -34,7 +34,7 @@ const itemId = `faq-${Math.random().toString(36).slice(2, 9)}`;
     class="faq-answer overflow-hidden transition-all duration-300 ease-out"
     style="max-height: 0;"
   >
-    <p class="pb-5 text-sm leading-relaxed text-primary-500 sm:text-base">
+    <p class="pb-5 text-md leading-relaxed text-primary-500 sm:text-lg">
       {answer}
     </p>
   </div>

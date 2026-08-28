@@ -41,7 +41,7 @@ const {
 
     <!-- Desktop nav -->
     <div class="hidden items-center gap-6 sm:flex">
-      <ul class="flex items-center gap-6 text-sm font-medium text-primary-500">
+      <ul class="flex items-center gap-6 text-lg font-medium text-primary-500">
         {sections.map((item) => (
           <li>
             <a
@@ -55,7 +55,7 @@ const {
       </ul>
 
       {cta && (
-        <Button as="a" href={cta.href} variant="primary" size="sm">
+        <Button as="a" href={cta.href} variant="primary" size="lg">
           {cta.label}
         </Button>
       )}
