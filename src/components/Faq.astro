@@ -1,0 +1,33 @@
+---
+interface Props {
+  title?: string;
+  description?: string;
+  class?: string;
+}
+
+const {
+  title = "Preguntas Frecuentes",
+  description = "Resolvemos tus dudas sobre el proyecto.",
+  class: className,
+} = Astro.props;
+---
+
+<section class:list={["mx-auto flex min-h-screen max-w-3xl flex-col justify-center px-4 py-16 sm:px-6", className]}>
+  <div class="mb-10 text-center">
+    <h2 class="text-4xl font-bold text-primary">
+      {title.split(" ").map((word, i) => {
+        const isLast = i === title.split(" ").length - 1;
+        return isLast
+          ? <span class="text-secondary">{word}</span>
+          : <span>{word} </span>;
+      })}
+    </h2>
+    {description && (
+      <p class="mt-4 text-lg text-primary-500">{description}</p>
+    )}
+  </div>
+
+  <div class="divide-y-0">
+    <slot />
+  </div>
+</section>

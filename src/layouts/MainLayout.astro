@@ -1,0 +1,86 @@
+---
+import "../styles/global.css";
+import SEO from "../components/SEO.astro";
+import Navbar from "../components/Navbar.astro";
+import Footer from "../components/Footer.astro";
+
+interface FooterSection {
+  title: string;
+  links: { label: string; href: string }[];
+}
+
+interface Props {
+  title: string;
+  description?: string;
+  image?: string;
+  canonical?: string;
+  class?: string;
+  footerSections?: FooterSection[];
+}
+
+const { class: className, footerSections, ...seo } = Astro.props;
+
+const defaultFooterSections: FooterSection[] = footerSections ?? [
+  {
+    title: "Producto",
+    links: [
+      { label: "Features", href: "#" },
+      { label: "Pricing", href: "#" },
+      { label: "Changelog", href: "#" },
+      { label: "Docs", href: "#" },
+    ],
+  },
+  {
+    title: "Compañía",
+    links: [
+      { label: "About", href: "/about" },
+      { label: "Blog", href: "#" },
+      { label: "Careers", href: "#" },
+      { label: "Press", href: "#" },
+    ],
+  },
+  {
+    title: "Soporte",
+    links: [
+      { label: "Help Center", href: "#" },
+      { label: "Contacto", href: "/contact" },
+      { label: "Status", href: "#" },
+      { label: "Community", href: "#" },
+    ],
+  },
+];
+---
+
+<!doctype html>
+<html lang="es" class="scroll-smooth">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="generator" content={Astro.generator} />
+
+    <SEO {...seo} />
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" href="/favicon.ico" sizes="any" />
+
+    <!-- Theme color -->
+    <meta name="theme-color" content="#020202" media="(prefers-color-scheme: dark)" />
+    <meta name="theme-color" content="#f5f5f5" media="(prefers-color-scheme: light)" />
+  </head>
+  <body class:list={["flex min-h-dvh flex-col bg-primary-50 font-base text-primary antialiased", className]}>
+    <Navbar
+      logo="Getup"
+      sections={[
+        { label: "Inicio", href: "/" },
+        { label: "Nosotros", href: "/about" },
+        { label: "Contacto", href: "/contact" },
+      ]}
+      cta={{ label: "Comenzar", href: "#" }}
+    />
+    <div class="flex-1">
+      <slot />
+    </div>
+    <Footer sections={defaultFooterSections} />
+  </body>
+</html>

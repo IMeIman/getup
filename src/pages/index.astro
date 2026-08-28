@@ -1,17 +1,122 @@
 ---
-
+import MainLayout from "../layouts/MainLayout.astro";
+import HeroSection from "../components/HeroSection.astro";
+import HeroImage from "../components/HeroImage.astro";
+import Card from "../components/Card.astro";
+import Carousel from "../components/Carousel.astro";
+import Faq from "../components/Faq.astro";
+import FaqItem from "../components/FaqItem.astro";
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+<MainLayout title="Getup — Inicio" description="Proyecto Getup con design system">
+
+  <HeroSection
+    display="Construye sitios web modernos"
+    description="Create proyectos rápidos con un design system completo, componentes reutilizables y Tailwind CSS v4."
+    primaryButton={{ label: "Empezar ahora", href: "#" }}
+    secondaryButton={{ label: "Ver documentación", href: "#" }}
+  >
+    <HeroImage
+      slot="image"
+      src="https://placehold.co/800x600/f5f5f5/1f1f1f?text=Hero+Image"
+      alt="Dashboard preview del proyecto Getup"
+    />
+  </HeroSection>
+
+  <section class="mx-auto flex min-h-screen max-w-6xl flex-col justify-center px-4 py-16 sm:px-6">
+    <div class="flex justify-center w-full">
+      <h2 class="mb-8 text-4xl font-bold text-primary">End-to-end <span class="text-secondary">AI, tech & growth services
+        </span>
+      </h2>
+    </div>
+    <div class="grid auto-rows-[minmax(180px,auto)] gap-4 sm:grid-cols-2 lg:grid-cols-4">
+
+      <Card
+        colSpan={2}
+        rowSpan={2}
+        image={{ src: "https://placehold.co/900x500/f5f5f5/1f1f1f?text=Bento+Hero", alt: "Bento hero image" }}
+        title="Performance First"
+        description="Build ultrarrápido con Vite y optimizaciones automáticas. Tu sitio carga en milisegundos."
+        tags={["Fast", "Vite", "Optimized"]}
+      />
+
+      <Card
+        title="Modular"
+        description="Componentes independientes que puedes mezclar y combinar."
+        tags={["Components", "Astro"]}
+      >
+        <svg slot="icon" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M14.25 6.087c0-.355.186-.676.401-.959.221-.29.349-.634.349-1.003 0-1.036-1.007-1.875-2.25-1.875s-2.25.84-2.25 1.875c0 .369.128.713.349 1.003.215.283.401.604.401.959V6a2.25 2.25 0 00-2.25-2.25H6A2.25 2.25 0 003.75 6v.75c0 .312.128.604.349.822m0 0c.215.218.491.322.775.322h10.5c.284 0 .56-.104.775-.322m0 0A2.25 2.25 0 0121 9v.75c0 .414-.336.75-.75.75H3.75A.75.75 0 013 9.75V9c0-.414.336-.75.75-.75h16.5c.414 0 .75.336.75.75v.75z" />
+        </svg>
+      </Card>
+
+      <Card
+        title="Speed"
+        description="Optimizado para performance desde el primer día."
+        tags={["Fast"]}
+      >
+        <svg slot="icon" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 13.5l10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75z" />
+        </svg>
+      </Card>
+
+      <Card
+        colSpan={2}
+        title="Design System"
+        description="Tokens de diseño primitives y semánticos. Colores, tipografía, espaciado y más, listos para reutilizar en cualquier proyecto."
+        tags={["Tokens", "Primitives", "Semantic"]}
+      >
+        <svg slot="icon" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M4.098 19.902a3.75 3.75 0 005.304 0l6.401-6.402M6.75 21A3.75 3.75 0 013 17.25V4.125C3 3.504 3.504 3 4.125 3h5.25c.621 0 1.125.504 1.125 1.125v4.072M6.75 21a3.75 3.75 0 003.75-3.75V8.197M6.75 21h13.125c.621 0 1.125-.504 1.125-1.125v-5.25c0-.621-.504-1.125-1.125-1.125h-4.072M10.5 8.197l2.88-2.88c.438-.439 1.15-.439 1.59 0l3.712 3.713c.44.44.44 1.152 0 1.59l-2.879 2.88M6.75 17.25h.008v.008H6.75v-.008z" />
+        </svg>
+      </Card>
+
+    </div>
+  </section>
+
+  {/* Our Projects */}
+  <section class="mx-auto flex min-h-screen max-w-6xl flex-col justify-center px-4 py-16 sm:px-6">
+    <div class="flex justify-center w-full">
+      <h2 class="mb-8 text-4xl font-bold text-primary">Our <span class="text-secondary">Projects</span></h2>
+    </div>
+    <Carousel
+      images={[
+        "https://placehold.co/600x400/f5f5f5/1f1f1f?text=Project+1",
+        "https://placehold.co/600x400/ede9fe/4c1d95?text=Project+2",
+        "https://placehold.co/600x400/f5f5f5/1f1f1f?text=Project+3",
+        "https://placehold.co/600x400/ede9fe/4c1d95?text=Project+4",
+        "https://placehold.co/600x400/f5f5f5/1f1f1f?text=Project+5",
+        "https://placehold.co/600x400/ede9fe/4c1d95?text=Project+6",
+      ]}
+      speed={30}
+      direction="left"
+    />
+  </section>
+
+  <Faq>
+    <FaqItem
+      question="¿Qué es Getup?"
+      answer="Getup es un proyecto base para crear sitios web modernos con Astro y Tailwind CSS v4. Incluye un design system completo con componentes reutilizables."
+    />
+    <FaqItem
+      question="¿Cómo instalo el proyecto?"
+      answer="Solo clona el repositorio, ejecuta pnpm install y luego pnpm run dev. El servidor de desarrollo arrancará en http://localhost:4321."
+    />
+    <FaqItem
+      question="¿Puedo usarlo en producción?"
+      answer="Sí. El proyecto está optimizado para performance con build estático, imágenes lazy-loaded y CSS minimizado. Genera un sitio ultrarrápido."
+    />
+    <FaqItem
+      question="¿Qué tecnologías usa?"
+      answer="Astro v7 como framework, Tailwind CSS v4 para estilos, y CSS custom properties para el design system. Todo sin JavaScript innecesario."
+    />
+    <FaqItem
+      question="¿Cómo personalizo los colores?"
+      answer="Edita las variables de color en src/styles/global.css dentro del bloque @theme. Los tokens primary y secondary se propagan automáticamente a todos los componentes."
+    />
+    <FaqItem
+      question="¿Soporta dark mode?"
+      answer="Actualmente el proyecto usa una paleta de grises para primary y morado para secondary. Puedes agregar dark mode modificando los tokens en global.css."
+    />
+  </Faq>
+</MainLayout>

@@ -1,0 +1,98 @@
+---
+interface Props {
+  title?: string;
+  description?: string;
+  tags?: string[];
+  image?: {
+    src: string;
+    alt: string;
+  };
+  href?: string;
+  colSpan?: 1 | 2 | 3;
+  rowSpan?: 1 | 2;
+  class?: string;
+}
+
+const {
+  title,
+  description,
+  tags,
+  image,
+  href,
+  colSpan = 1,
+  rowSpan = 1,
+  class: className,
+} = Astro.props;
+
+const colSpanClasses: Record<number, string> = {
+  1: "col-span-1",
+  2: "col-span-1 sm:col-span-2",
+  3: "col-span-1 sm:col-span-2 lg:col-span-3",
+};
+
+const rowSpanClasses: Record<number, string> = {
+  1: "row-span-1",
+  2: "row-span-1 sm:row-span-2",
+};
+
+const Tag = href ? "a" : "div";
+const tagProps = href ? { href } : {};
+---
+
+<Tag
+  {...tagProps}
+  class:list={[
+    "group flex h-full w-full flex-col overflow-hidden rounded-2xl border border-primary-100 bg-primary-50",
+    "transition-all duration-200",
+    href && "hover:border-primary-200 hover:shadow-lg hover:shadow-primary-950/5 hover:-translate-y-0.5",
+    colSpanClasses[colSpan],
+    rowSpanClasses[rowSpan],
+    className,
+  ]}
+>
+  {/* Image */}
+  {image && (
+    <div class="aspect-video w-full overflow-hidden bg-primary-100">
+      <img
+        src={image.src}
+        alt={image.alt}
+        loading="lazy"
+        decoding="async"
+        class="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
+      />
+    </div>
+  )}
+
+  {/* Content */}
+  <div class="flex flex-col gap-3 p-5">
+    {/* Icon + Title */}
+    {(Astro.slots.has("icon") || title) && (
+      <div class="flex items-center gap-3">
+        {Astro.slots.has("icon") && (
+          <span class="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg text-secondary-600">
+            <slot name="icon" />
+          </span>
+        )}
+        {title && (
+          <h3 class="text-base font-semibold text-primary">{title}</h3>
+        )}
+      </div>
+    )}
+
+    {/* Description */}
+    {description && (
+      <p class="text-sm leading-relaxed text-primary-500">{description}</p>
+    )}
+
+    {/* Tags */}
+    {tags && tags.length > 0 && (
+      <div class="mt-auto flex flex-wrap gap-1.5 pt-2">
+        {tags.map((tag) => (
+          <span class="inline-block rounded-full bg-primary-100 px-2.5 py-0.5 text-xs font-medium text-primary-600">
+            {tag}
+          </span>
+        ))}
+      </div>
+    )}
+  </div>
+</Tag>

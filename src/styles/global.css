@@ -1,0 +1,42 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+@import 'tailwindcss';
+
+@theme {
+    --font-base: 'Inter', sans-serif;
+
+    --color-primary: var(--color-primary-950);
+    --color-primary-950: #020202;
+    --color-primary-900: #121212;
+    --color-primary-800: #1f1f1f;
+    --color-primary-700: #2e2e2e;
+    --color-primary-600: #3d3d3d;
+    --color-primary-500: #525252;
+    --color-primary-400: #737373;
+    --color-primary-300: #a3a3a3;
+    --color-primary-200: #d4d4d4;
+    --color-primary-100: #e5e5e5;
+    --color-primary-50: #f5f5f5;
+
+    --color-secondary: var(--color-secondary-500);
+    --color-secondary-950: #1e0533;
+    --color-secondary-900: #2e0a4f;
+    --color-secondary-800: #4c1d95;
+    --color-secondary-700: #6d28d9;
+    --color-secondary-600: #7c3aed;
+    --color-secondary-500: #8b5cf6;
+    --color-secondary-400: #a78bfa;
+    --color-secondary-300: #c4b5fd;
+    --color-secondary-200: #ddd6fe;
+    --color-secondary-100: #ede9fe;
+    --color-secondary-50: #f5f3ff;
+}
+
+@keyframes infinite-scroll-left {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+}
+
+@keyframes infinite-scroll-right {
+    from { transform: translateX(-50%); }
+    to { transform: translateX(0); }
+}

@@ -1,0 +1,63 @@
+---
+import Button from "./Button.astro";
+
+interface PrimaryButton {
+  label: string;
+  href: string;
+}
+
+interface SecondaryButton {
+  label: string;
+  href: string;
+}
+
+interface Props {
+  display: string;
+  description: string;
+  primaryButton: PrimaryButton;
+  secondaryButton?: SecondaryButton;
+  class?: string;
+}
+
+const {
+  display,
+  description,
+  primaryButton,
+  secondaryButton,
+  class: className,
+} = Astro.props;
+---
+
+<section class:list={[
+  "mx-auto flex min-h-screen max-w-6xl flex-col justify-center mt-28 sm:mt-auto px-4 py-16 sm:px-6",
+  className,
+]}>
+  <div class="grid items-center gap-12 lg:grid-cols-2 lg:gap-16">
+
+    <!-- Text content -->
+    <div class="flex flex-col gap-6">
+      <h1 class="text-4xl font-bold tracking-tight text-primary sm:text-5xl lg:text-6xl">
+        {display}
+      </h1>
+
+      <p class="max-w-lg text-lg leading-relaxed text-primary-500">
+        {description}
+      </p>
+
+      <div class="flex flex-wrap gap-3">
+        <Button as="a" href={primaryButton.href} variant="primary" size="lg">
+          {primaryButton.label}
+        </Button>
+        {secondaryButton && (
+          <Button as="a" href={secondaryButton.href} variant="outline" size="lg">
+            {secondaryButton.label}
+          </Button>
+        )}
+      </div>
+    </div>
+
+    <!-- Image slot -->
+    <slot name="image" />
+
+  </div>
+</section>

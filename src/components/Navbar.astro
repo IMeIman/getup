@@ -1,0 +1,154 @@
+---
+import Button from "./Button.astro";
+
+interface NavItem {
+  label: string;
+  href: string;
+}
+
+interface Props {
+  logo?: string;
+  logoHref?: string;
+  sections: NavItem[];
+  cta?: {
+    label: string;
+    href: string;
+  };
+  class?: string;
+}
+
+const {
+  logo = "Getup",
+  logoHref = "/",
+  sections,
+  cta,
+  class: className,
+} = Astro.props;
+---
+
+<header id="navbar" class:list={[
+  "fixed inset-x-0 top-0 z-50 border-b border-primary-100 bg-primary-50 transition-transform duration-300 ease-out",
+  className,
+]}>
+  <nav class="mx-auto flex h-16 max-w-6xl items-center justify-between px-4 sm:px-0">
+
+    <!-- Logo -->
+    <a href={logoHref} class="text-lg font-bold tracking-tight text-primary">
+      {logo}
+    </a>
+
+    <!-- Desktop nav -->
+    <div class="hidden items-center gap-6 sm:flex">
+      <ul class="flex items-center gap-6 text-sm font-medium text-primary-500">
+        {sections.map((item) => (
+          <li>
+            <a
+              href={item.href}
+              class="transition-colors hover:text-secondary"
+            >
+              {item.label}
+            </a>
+          </li>
+        ))}
+      </ul>
+
+      {cta && (
+        <Button as="a" href={cta.href} variant="primary" size="sm">
+          {cta.label}
+        </Button>
+      )}
+    </div>
+
+    <!-- Mobile toggle -->
+    <button
+      id="navbar-toggle"
+      class="inline-flex items-center justify-center rounded-lg p-2 text-primary-700 transition-colors  hover:text-primary sm:hidden"
+      aria-label="Abrir menú"
+      aria-expanded="false"
+    >
+      <svg id="icon-menu" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+      </svg>
+      <svg id="icon-close" class="hidden h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+      </svg>
+    </button>
+  </nav>
+
+  <!-- Mobile menu -->
+  <div
+    id="navbar-mobile"
+    class="overflow-hidden border-t border-transparent opacity-0 shadow-lg shadow-primary-950/5 transition-all duration-300 ease-out sm:hidden"
+    style="max-height: 0; padding: 0 1rem 0;"
+  >
+    <div class="pb-8 pt-3">
+      <ul class="flex flex-col gap-1 text-sm font-medium text-primary-500">
+        {sections.map((item) => (
+          <li>
+            <a
+              href={item.href}
+              class="block rounded-lg px-3 py-2 transition-colors hover:bg-primary-100/30 hover:text-secondary"
+            >
+              {item.label}
+            </a>
+          </li>
+        ))}
+      </ul>
+      {cta && (
+        <Button as="a" href={cta.href} variant="primary" size="md" class="mt-3 w-full">
+          {cta.label}
+        </Button>
+      )}
+    </div>
+  </div>
+</header>
+
+<script>
+  const toggle = document.getElementById("navbar-toggle");
+  const mobile = document.getElementById("navbar-mobile");
+  const iconMenu = document.getElementById("icon-menu");
+  const iconClose = document.getElementById("icon-close");
+
+  // ── Scroll hide/show ─────────────────────────────────────
+  const navbar = document.getElementById("navbar");
+  let lastScrollY = 0;
+  const THRESHOLD = 10;
+
+  const onScroll = () => {
+    const currentY = window.scrollY;
+    const delta = currentY - lastScrollY;
+
+    if (currentY <= 0) {
+      navbar?.style.removeProperty("transform");
+    } else if (delta > THRESHOLD) {
+      // Scrolling down → hide
+      navbar!.style.transform = "translateY(-100%)";
+    } else if (delta < -THRESHOLD) {
+      // Scrolling up → show
+      navbar?.style.removeProperty("transform");
+    }
+
+    lastScrollY = currentY;
+  };
+
+  window.addEventListener("scroll", onScroll, { passive: true });
+
+  const setMobileMenuState = (isOpen) => {
+    if (!mobile) return;
+
+    const inner = mobile.firstElementChild;
+    mobile.style.maxHeight = isOpen ? `${inner?.scrollHeight ?? 0}px` : "0px";
+    mobile.style.opacity = isOpen ? "1" : "0";
+    mobile.style.paddingTop = isOpen ? "0.75rem" : "0";
+    mobile.style.paddingBottom = isOpen ? "1rem" : "0";
+    mobile.style.borderColor = isOpen ? "rgba(229, 229, 229, 0.8)" : "transparent";
+  };
+
+  toggle?.addEventListener("click", () => {
+    const isOpen = mobile?.style.maxHeight === "0px" || !mobile?.style.maxHeight;
+    setMobileMenuState(isOpen);
+    toggle.setAttribute("aria-expanded", String(isOpen));
+    iconMenu?.classList.toggle("hidden", isOpen);
+    iconClose?.classList.toggle("hidden", !isOpen);
+  });
+</script>
